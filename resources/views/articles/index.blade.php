@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des articles</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome pour les icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <style>
+@extends('layouts.app')
+@section('content')
+<style>
         :root {
             --primary-color: #4361ee;
             --secondary-color: #3f37c9;
@@ -26,7 +15,6 @@
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding: 3rem 0;
         }
         
         .page-header {
@@ -212,6 +200,7 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="page-header">
             <h1><i class="fas fa-newspaper me-2"></i>Liste des articles</h1>
@@ -303,5 +292,57 @@
             });
         });
     </script>
-</body>
-</html>
+<div class="d-flex flex-column align-items-center mt-4 gap-2">
+    @if($articles->total() > 0)
+    <div class="results-info text-muted mb-2">
+        Affichage de {{ $articles->firstItem() }} à {{ $articles->lastItem() }} sur {{ $articles->total() }} résultats
+    </div>
+@endif
+    <div class="custom-pagination">
+        {{ $articles->links('pagination::bootstrap-5') }}
+    </div>
+</div>
+<style>
+    .results-info {
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        color: #6c757d;
+    }
+
+    .custom-pagination nav {
+        display: flex;
+        justify-content: center;
+    }
+    .custom-pagination .pagination {
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(67,97,238,0.07);
+        overflow: hidden;
+        background: #fff;
+        padding: 0.5rem 1rem;
+    }
+    .custom-pagination .page-link {
+        color: var(--primary-color);
+        border: none;
+        background: transparent;
+        font-weight: 500;
+        transition: background 0.2s, color 0.2s;
+        margin: 0 2px;
+        border-radius: 8px;
+    }
+    .custom-pagination .page-link:hover, .custom-pagination .page-link:focus {
+        background: var(--primary-color);
+        color: #fff;
+    }
+    .custom-pagination .page-item.active .page-link {
+        background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 2px 6px rgba(67,97,238,0.13);
+    }
+    .custom-pagination .page-item.disabled .page-link {
+        color: #b0b0b0;
+        background: #f6f6f6;
+    }
+</style>
+@endsection

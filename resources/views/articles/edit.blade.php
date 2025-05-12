@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@extends('layouts.app')
+@section('content')
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -26,7 +27,6 @@
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding: 3rem 0;
         }
         
         .page-header {
@@ -332,4 +332,4 @@
         });
     </script>
 </body>
-</html>
+@endsection
